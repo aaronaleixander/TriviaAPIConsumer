@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TriviaAPIConsumer
 {
-    //Trivia API : https://opentdb.com/api.php?amount=10
+    // Trivia API : https://opentdb.com/api.php?amount=10
     public class TriviaClient
     {
         
@@ -35,5 +35,23 @@ namespace TriviaAPIConsumer
                 return null;
             }
         }
+    }
+
+
+    // json2csharp.com
+    public class Result
+    {
+        public string category { get; set; }
+        public string type { get; set; }
+        public string difficulty { get; set; }
+        public string question { get; set; }
+        public string correct_answer { get; set; }
+        public List<string> incorrect_answers { get; set; }
+    }
+
+    public class TriviaResponse
+    {
+        public int response_code { get; set; }
+        public List<Result> results { get; set; }
     }
 }
