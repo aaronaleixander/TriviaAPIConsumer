@@ -15,7 +15,10 @@ namespace TriviaAPIConsumer
         // Static Constructor; Runs once per class.
         static TriviaClient()
         {
-            // Initialize all HttpCLient settings
+            // Base Address must end with /
+            // there is a stack overflow post that goes into this detail.
+            client.BaseAddress =
+                new Uri("https://opentdb.com/");
         }
 
 
@@ -23,7 +26,7 @@ namespace TriviaAPIConsumer
         public async Task<string> GetTriviaQuestions()
         {
             // URL to get information from
-            HttpResponseMessage response = await client.GetAsync("https://opentdb.com/api.php?amount=5");
+            HttpResponseMessage response = await client.GetAsync("api.php?amount=5");
             if (response.IsSuccessStatusCode)
             {
                 // Return data
