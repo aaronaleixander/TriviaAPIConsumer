@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -27,14 +28,17 @@ namespace TriviaAPIConsumer
         /// </summary>
         /// <param name="numQuestions"> Number of trivia questions to be returned </param>
         /// <returns></returns>
-        public async Task<string> GetTriviaQuestions(byte numQuestions)
+        public async Task<TriviaResponse> GetTriviaQuestions(byte numQuestions)
         {
             // URL to get information from
             HttpResponseMessage response = await client.GetAsync($"api.php?amount={numQuestions}");
             if (response.IsSuccessStatusCode)
             {
-                // Return data
-                return await response.Content.ReadAsStringAsync();
+                // Return data and deserialize.
+                string data = await response.Content.ReadAsStringAsync();
+                TriviaResponse result = JsonConvert.DeserializeObject<TriviaResponse>(data);
+
+                return result;
             }
             else
             {
